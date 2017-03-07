@@ -17,12 +17,14 @@ const MODEL_HANDLER = {
   PULL: handlePullModel,
 };
 
-services.forEach(async (service) => {
+services.forEach((service) => {
   const model = service.model.toUpperCase();
   debug(`Appending model "${model}"`);
   const handler = MODEL_HANDLER[model];
   try {
-    await handler(service);
+    handler(service).catch((err) => {
+      debug('Error while handling services', err.message, err.stack);
+    });
   } catch (err) {
     debug('Error while handling services', err.message, err.stack);
   }

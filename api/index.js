@@ -21,9 +21,15 @@ router.get('/service/:service', (ctx) => {
 
   const {service} = freshRequire('../stat.json');
   debug(`Service data in db: "${JSON.stringify(service)}"`);
+
+  const serviceConfig = services.find(service => service.serviceName === serviceName) || null;
+  if (serviceConfig) {
+    delete serviceConfig.auth;
+  }
+
   ctx.response.body = {
     data: service[serviceName],
-    config: services.find(service => service.serviceName === serviceName) || null
+    config: serviceConfig
   };
 });
 

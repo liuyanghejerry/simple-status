@@ -1,41 +1,24 @@
 import got from 'got';
-import lowdb from 'lowdb';
 import debugFun from 'debug';
 const debug = debugFun('simple-status:model:pull');
 
 import config from '../config';
 const {services, stories} = config;
 
+const utils = require('./utils');
 import MODEL from './constant';
-
-const db = lowdb('stat.json');
-db.defaults({ service: {} }).write();
 
 const waitTimeout = (duration) => {
   return new Promise(resolve => setTimeout(resolve, duration));
 };
 
 export default async function handlePullModel({serviceName, endPoint, accept, interval, slow, timeout, maxRecord, manualState}) {
-  const paramsValid = [serviceName, endPoint, accept, interval, slow].every(val => !!val);
+  const paramsValid = [serviceName, endPoint, accept, interval, slow, maxRecord].every(val => !!val);
   if (!paramsValid) {
     throw new Error('Params are not correct for pull model');
   }
 
-  const isServiceCreated = db.has(`service.${serviceName}`).value();
-
-  if (!isServiceCreated) {
-    debug(`New service is created in db: "${serviceName}"`);
-    db.set(`service.${serviceName}`, []).write();
-  }
-
-  let rows = db.get(`service.${serviceName}`).cloneDeep().value();
-  const rowCount = rows.length;
-
-  if (rowCount >= maxRecord) {
-    const droppedCount = rowCount - maxRecord + 1;
-    debug(`Too many rows(${rowCount}) for "${serviceName}", dropped ${droppedCount}.`);
-    rows = db._.drop(rows, droppedCount);
-  }
+  let rows = utils.prepareServiceInDb(serviceName, maxRecord);
 
   debug(`Try to request "${endPoint}"...`);
   const startTime = Date.now();
@@ -76,9 +59,8 @@ export default async function handlePullModel({serviceName, endPoint, accept, in
   }
 
   rows.push(newRow);
-  db.set(`service.${serviceName}`, rows).write();
+  utils.writeServiceStatToDb(serviceName, rows);
   debug(`Stat written for ${serviceName}. About to sleep for ${interval}ms...`);
 
-  await waitTimeout(interval);
-  process.nextTick(handlePullModel.bind(this, ...Array.from(arguments)));
+  setTimeout(() => handlePullModel(...Array.from(arguments)), interval);
 }

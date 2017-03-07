@@ -2,6 +2,9 @@ export default {
   api: {
     port: 3000
   },
+  pushEndPoint: {
+    port: 3001
+  },
   services: [
     {
       model: 'pull',

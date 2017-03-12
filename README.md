@@ -9,7 +9,7 @@ Still under construction now.
 # Roadmap
 
 - [x] Pull model
-- [ ] Push model
+- [x] Push model
 - [ ] Maintanence story
 - [ ] Front-end code
 - [ ] Dockerize

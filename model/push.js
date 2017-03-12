@@ -36,7 +36,7 @@ export default async function handlePushModel({serviceName, auth: {tokenName, to
 
     let rows = utils.prepareServiceInDb(serviceName, maxRecord);
 
-    let newRow = {
+    const newRow = {
       serviceName,
       model: MODEL.PUSH,
       insertTime: Date.now(),

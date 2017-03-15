@@ -1,3 +1,3 @@
 require('babel-core/register');
 require("babel-polyfill");
-const app = require('./api');
+const app = require('./web');

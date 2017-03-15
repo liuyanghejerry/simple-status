@@ -17,6 +17,8 @@ module.exports = {
   ],
   // add your custom rules here
   'rules': {
+    "comma-dangle": ["error", "always"],
+    "semi": ["error", "always"],
     // allow paren-less arrow functions
     'arrow-parens': 0,
     // allow async-await

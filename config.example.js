@@ -1,4 +1,7 @@
 export default {
+  web: {
+    port: 3002
+  },
   api: {
     port: 3000
   },

@@ -10,8 +10,6 @@ import handlePullModel from './model/pull';
 import config from './config';
 const {services, stories} = config;
 
-import {run} from './api';
-
 const MODEL_HANDLER = {
   PUSH: handlePushModel,
   PULL: handlePullModel,
@@ -30,5 +28,4 @@ services.forEach((service) => {
   }
 });
 
-run();
-debug(`Simple Status is up and running now, listened port ${config.api.port}`);
+debug(`Simple Status is up and running now.`);

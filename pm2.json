@@ -1,0 +1,43 @@
+{
+  "apps" : [
+    {
+      "name"        : "Main",
+      "script"      : "./index.js",
+      "watch"       : true,
+      "cwd": ".",
+      "env": {
+        "DEBUG": "*",
+        "NODE_ENV": "development"
+      },
+      "env_production" : {
+         "NODE_ENV": "production"
+      }
+    },
+    {
+      "name"        : "API",
+      "script"      : "./api/index.js",
+      "watch"       : true,
+      "cwd": ".",
+      "env": {
+        "DEBUG": "*",
+        "NODE_ENV": "development"
+      },
+      "env_production" : {
+         "NODE_ENV": "production"
+      }
+    },
+    {
+      "name"        : "Web",
+      "script"      : "./web/index.js",
+      "watch"       : true,
+      "cwd": ".",
+      "env": {
+        "DEBUG": "*",
+        "NODE_ENV": "development"
+      },
+      "env_production" : {
+         "NODE_ENV": "production"
+      }
+    }
+  ]
+}

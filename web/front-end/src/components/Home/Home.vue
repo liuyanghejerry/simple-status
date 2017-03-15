@@ -11,7 +11,7 @@
       </div>
     </summary>
 
-    <details open>
+    <div class="metric-list">
       <div class="item">
         <div>Website</div>
         <div>Operational</div>
@@ -20,14 +20,14 @@
         <div>Website</div>
         <div>Operational</div>
       </div>
-    </details>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'home'
-}
+  name: 'home',
+};
 </script>
 
 <style lang="less" scoped>
@@ -39,6 +39,7 @@ export default {
     margin-bottom: 70px;
     h2 {
       font-size: 4rem;
+      font-weight: normal;
     }
   }
 
@@ -63,14 +64,14 @@ export default {
     }
   }
 
-  details {
-    .item:nth-of-type(1) {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-    .item:nth-of-type(n+2) {
+  .metric-list {
+    .item:not(:first-of-type) {
       border-top: none;
       border-radius: 0;
+    }
+    .item:first-of-type {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
     }
     .item:last-of-type {
       border-bottom-left-radius: 4px;
